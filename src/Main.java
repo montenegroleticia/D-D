@@ -1,9 +1,13 @@
-package ProjetoParadigmas;
+package src;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class JogoCartas {
+import src.entities.Baralho;
+import src.entities.Carta;
+import src.entities.Tabuleiro;
+
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Baralho baralho = new Baralho();
@@ -48,7 +52,6 @@ public class JogoCartas {
         // Exibição final do tabuleiro
         System.out.println("\nO jogo terminou!");
         tabuleiro.mostrarTabuleiro();
-        scanner.close();  // Fecha o scanner
+        scanner.close(); // Fecha o scanner
     }
 }
-

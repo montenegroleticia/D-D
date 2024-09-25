@@ -1,11 +1,11 @@
-package ProjetoParadigmas;
+package src.entities;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Baralho {
-    private static final String[] ATRIBUTOS = {"fogo", "agua", "terra"};
+    private static final String[] ATRIBUTOS = { "fogo", "agua", "terra" };
     private static final Random RANDOM = new Random();
 
     // Método para criar mão de cartas para o jogador Verde
@@ -31,6 +31,6 @@ public class Baralho {
             // Criar carta com o jogador definido
             mao.add(new Carta(cima, baixo, esquerda, direita, jogador, elemento));
         }
-        return mao;  // Retorna a mão de cartas criada
+        return mao; // Retorna a mão de cartas criada
     }
 }
