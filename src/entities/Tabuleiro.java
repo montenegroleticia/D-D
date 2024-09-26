@@ -1,16 +1,16 @@
 package src.entities;
 
 public class Tabuleiro {
-    Carta[][] tabuleiro = new Carta[3][3];
-    int pontosVerde = 5;
-    int pontosAzul = 5;
+    private Carta[][] tabuleiro = new Carta[3][3];
+    private int pontosVerde = 5;
+    private int pontosAzul = 5;
 
     public void inserirCarta(int x, int y, Carta novaCarta) {
         if (tabuleiro[x][y] == null) {
             // Incrementa valores se houver cartas do mesmo elemento
             for (Carta[] linha : tabuleiro) {
                 for (Carta carta : linha) {
-                    if (carta != null && carta.elemento.equals(novaCarta.elemento)) {
+                    if (carta != null && carta.getElemento().equals(novaCarta.getElemento())) {
                         carta.aumentarValores();
                     }
                 }
@@ -34,24 +34,24 @@ public class Tabuleiro {
     private void verificarCaptura(int x, int y, Carta novaCarta) {
         if (x >= 0 && x < 3 && y >= 0 && y < 3 && tabuleiro[x][y] != null) {
             Carta cartaAdjacente = tabuleiro[x][y];
-            if (!cartaAdjacente.jogador.equals(novaCarta.jogador)) {
+            if (!cartaAdjacente.getJogador().equals(novaCarta.getJogador())) {
                 // Captura se o valor for maior
-                if (novaCarta.baixo > cartaAdjacente.cima) {
-                    capturarCarta(x, y, novaCarta.jogador);
-                } else if (novaCarta.direita > cartaAdjacente.esquerda) {
-                    capturarCarta(x, y, novaCarta.jogador);
-                } else if (cartaAdjacente.cima > novaCarta.baixo) {
-                    capturarCarta(x, y, cartaAdjacente.jogador);
-                } else if (cartaAdjacente.esquerda > novaCarta.direita) {
-                    capturarCarta(x, y, cartaAdjacente.jogador);
+                if (novaCarta.getBaixo() > cartaAdjacente.getCima()) {
+                    capturarCarta(x, y, novaCarta.getJogador());
+                } else if (novaCarta.getDireita() > cartaAdjacente.getEsquerda()) {
+                    capturarCarta(x, y, novaCarta.getJogador());
+                } else if (cartaAdjacente.getCima() > novaCarta.getBaixo()) {
+                    capturarCarta(x, y, cartaAdjacente.getJogador());
+                } else if (cartaAdjacente.getEsquerda() > novaCarta.getDireita()) {
+                    capturarCarta(x, y, cartaAdjacente.getJogador());
                 }
             }
         }
     }
 
     private void capturarCarta(int x, int y, String jogadorNovo) {
-        String jogadorAntigo = tabuleiro[x][y].jogador;
-        tabuleiro[x][y].jogador = jogadorNovo;
+        String jogadorAntigo = tabuleiro[x][y].getJogador();
+        tabuleiro[x][y].setJogador(jogadorNovo);
 
         // Ajustar a pontuação
         if (jogadorNovo.equals("verde")) {

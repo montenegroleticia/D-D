@@ -44,10 +44,17 @@ public class Main {
         scanner.close(); // Fecha o scanner
     }
 
-    // Exibe as mãos dos jogadores
+    // Exibe as mãos dos jogadores utilizando métodos getters
     private static void exibirMaos(List<Carta> maoVerde, List<Carta> maoAzul) {
-        System.out.println("Mão do jogador Verde: " + maoVerde);
-        System.out.println("Mão do jogador Azul: " + maoAzul);
+        System.out.println("Mão do jogador Verde:");
+        for (Carta carta : maoVerde) {
+            System.out.println(carta.toString());
+        }
+
+        System.out.println("Mão do jogador Azul:");
+        for (Carta carta : maoAzul) {
+            System.out.println(carta.toString());
+        }
     }
 
     // Realiza o turno de um jogador
@@ -61,6 +68,8 @@ public class Main {
             posicao = JogoUtils.escolherPosicao(scanner);
         }
 
-        tabuleiro.inserirCarta(posicao[0], posicao[1], mao.get(escolhaCarta));
+        // Insere a carta utilizando métodos getters
+        Carta cartaEscolhida = mao.get(escolhaCarta);
+        tabuleiro.inserirCarta(posicao[0], posicao[1], cartaEscolhida);
     }
 }

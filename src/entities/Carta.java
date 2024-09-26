@@ -1,12 +1,12 @@
 package src.entities;
 
 public class Carta {
-    int cima;
-    int baixo;
-    int esquerda;
-    int direita;
-    String jogador; // "verde" ou "azul"
-    String elemento; // "fogo", "agua", "terra"
+    private int cima;
+    private int baixo;
+    private int esquerda;
+    private int direita;
+    private String jogador; // "verde" ou "azul"
+    private String elemento; // "fogo", "agua", "terra"
 
     public Carta(int cima, int baixo, int esquerda, int direita, String jogador, String elemento) {
         this.cima = cima;
@@ -19,8 +19,8 @@ public class Carta {
 
     @Override
     public String toString() {
-        return "[" + jogador.charAt(0) + ":C-" + cima + ",E-" + esquerda + ",D-" + baixo + ",I-" + direita + ", "
-                + elemento + "]";
+        return String.format("[%s:C-%d,E-%d,D-%d,I-%d,%s]", 
+                              jogador.charAt(0), cima, esquerda, baixo, direita, elemento);
     }
 
     public void aumentarValores() {
@@ -28,5 +28,34 @@ public class Carta {
         baixo++;
         esquerda++;
         direita++;
+    }
+
+    // Métodos de acesso (getters)
+    public int getCima() {
+        return cima;
+    }
+
+    public int getBaixo() {
+        return baixo;
+    }
+
+    public int getEsquerda() {
+        return esquerda;
+    }
+
+    public int getDireita() {
+        return direita;
+    }
+
+    public String getJogador() {
+        return jogador;
+    }
+
+    public String getElemento() {
+        return elemento;
+    }
+
+    public void setJogador(String jogador) {
+        this.jogador = jogador;
     }
 }
