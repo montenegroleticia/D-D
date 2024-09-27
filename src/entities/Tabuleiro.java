@@ -51,12 +51,11 @@ public class Tabuleiro {
         String jogadorAntigo = tabuleiro[x][y].getJogador();
         tabuleiro[x][y].setJogador(jogadorNovo);
 
+        // Adiciona apenas 1 ponto ao jogador que captura
         if (jogadorNovo.equals("verde")) {
             pontosVerde++;
-            pontosAzul--;
         } else {
             pontosAzul++;
-            pontosVerde--;
         }
 
         System.out.println("A carta na posição (" + x + ", " + y + ") foi capturada pelo jogador " + jogadorNovo + "!");
