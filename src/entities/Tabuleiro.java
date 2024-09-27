@@ -7,7 +7,6 @@ public class Tabuleiro {
 
     public void inserirCarta(int x, int y, Carta novaCarta) {
         if (tabuleiro[x][y] == null) {
-            // Incrementa valores se houver cartas do mesmo elemento
             for (Carta[] linha : tabuleiro) {
                 for (Carta carta : linha) {
                     if (carta != null && carta.getElemento().equals(novaCarta.getElemento())) {
@@ -16,7 +15,7 @@ public class Tabuleiro {
                 }
             }
 
-            tabuleiro[x][y] = novaCarta; // Insere a carta
+            tabuleiro[x][y] = novaCarta; 
             verificarCapturaAdjacente(x, y, novaCarta);
             mostrarTabuleiro();
         } else {
@@ -25,17 +24,16 @@ public class Tabuleiro {
     }
 
     private void verificarCapturaAdjacente(int x, int y, Carta novaCarta) {
-        verificarCaptura(x - 1, y, novaCarta); // Cima
-        verificarCaptura(x + 1, y, novaCarta); // Baixo
-        verificarCaptura(x, y - 1, novaCarta); // Esquerda
-        verificarCaptura(x, y + 1, novaCarta); // Direita
+        verificarCaptura(x - 1, y, novaCarta); 
+        verificarCaptura(x + 1, y, novaCarta); 
+        verificarCaptura(x, y - 1, novaCarta); 
+        verificarCaptura(x, y + 1, novaCarta); 
     }
 
     private void verificarCaptura(int x, int y, Carta novaCarta) {
         if (x >= 0 && x < 3 && y >= 0 && y < 3 && tabuleiro[x][y] != null) {
             Carta cartaAdjacente = tabuleiro[x][y];
             if (!cartaAdjacente.getJogador().equals(novaCarta.getJogador())) {
-                // Captura se o valor for maior
                 if (novaCarta.getBaixo() > cartaAdjacente.getCima()) {
                     capturarCarta(x, y, novaCarta.getJogador());
                 } else if (novaCarta.getDireita() > cartaAdjacente.getEsquerda()) {
@@ -53,7 +51,6 @@ public class Tabuleiro {
         String jogadorAntigo = tabuleiro[x][y].getJogador();
         tabuleiro[x][y].setJogador(jogadorNovo);
 
-        // Ajustar a pontuação
         if (jogadorNovo.equals("verde")) {
             pontosVerde++;
             pontosAzul--;
@@ -91,7 +88,6 @@ public class Tabuleiro {
         return false;
     }
 
-    // Método para verificar se a posição está livre
     public boolean posicaoLivre(int x, int y) {
         return tabuleiro[x][y] == null;
     }

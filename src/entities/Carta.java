@@ -5,8 +5,8 @@ public class Carta {
     private int baixo;
     private int esquerda;
     private int direita;
-    private String jogador; // "verde" ou "azul"
-    private String elemento; // "fogo", "agua", "terra"
+    private String jogador; 
+    private String elemento; 
 
     public Carta(int cima, int baixo, int esquerda, int direita, String jogador, String elemento) {
         this.cima = cima;
@@ -30,7 +30,6 @@ public class Carta {
         direita++;
     }
 
-    // Métodos de acesso (getters)
     public int getCima() {
         return cima;
     }

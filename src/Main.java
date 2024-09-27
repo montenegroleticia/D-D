@@ -15,36 +15,27 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Baralho baralho = new Baralho();
 
-        // Criando mãos para os jogadores
         List<Carta> maoVerde = baralho.criarMaoVerde();
         List<Carta> maoAzul = baralho.criarMaoAzul();
 
-        // Criando o tabuleiro
         Tabuleiro tabuleiro = new Tabuleiro();
 
-        // Exibir mãos iniciais
         exibirMaos(maoVerde, maoAzul);
 
-        // Lógica do jogo
         while (!tabuleiro.jogoTerminado()) {
-            // Turno do jogador Verde
             realizarTurno("Verde", maoVerde, tabuleiro, scanner);
 
             if (tabuleiro.jogoTerminado()) {
                 break;
             }
-
-            // Turno do jogador Azul
             realizarTurno("Azul", maoAzul, tabuleiro, scanner);
         }
 
-        // Exibição final do tabuleiro
         System.out.println("\nO jogo terminou!");
         tabuleiro.mostrarTabuleiro();
-        scanner.close(); // Fecha o scanner
+        scanner.close(); 
     }
 
-    // Exibe as mãos dos jogadores utilizando métodos getters
     private static void exibirMaos(List<Carta> maoVerde, List<Carta> maoAzul) {
         System.out.println("Mão do jogador Verde:");
         for (Carta carta : maoVerde) {
@@ -56,8 +47,6 @@ public class Main {
             System.out.println(carta.toString());
         }
     }
-
-    // Realiza o turno de um jogador
     private static void realizarTurno(String jogador, List<Carta> mao, Tabuleiro tabuleiro, Scanner scanner) {
         System.out.println("Turno do jogador " + jogador + ".");
         int escolhaCarta = JogoUtils.escolherCarta(mao, scanner);
@@ -68,7 +57,6 @@ public class Main {
             posicao = JogoUtils.escolherPosicao(scanner);
         }
 
-        // Insere a carta utilizando métodos getters
         Carta cartaEscolhida = mao.get(escolhaCarta);
         tabuleiro.inserirCarta(posicao[0], posicao[1], cartaEscolhida);
     }
