@@ -32,20 +32,20 @@ public class Tabuleiro {
 
     private void verificarCaptura(int x, int y, Carta novaCarta) {
         if (x >= 0 && x < 3 && y >= 0 && y < 3 && tabuleiro[x][y] != null) {
-            Carta cartaAdjacente = tabuleiro[x][y];
-            if (!cartaAdjacente.getJogador().equals(novaCarta.getJogador())) {
-                if (novaCarta.getBaixo() > cartaAdjacente.getCima()) {
-                    capturarCarta(x, y, novaCarta.getJogador());
-                } else if (novaCarta.getDireita() > cartaAdjacente.getEsquerda()) {
-                    capturarCarta(x, y, novaCarta.getJogador());
-                } else if (cartaAdjacente.getCima() > novaCarta.getBaixo()) {
-                    capturarCarta(x, y, cartaAdjacente.getJogador());
-                } else if (cartaAdjacente.getEsquerda() > novaCarta.getDireita()) {
-                    capturarCarta(x, y, cartaAdjacente.getJogador());
-                }
-            }
+           Carta cartaAdjacente = tabuleiro[x][y];
+           if (!cartaAdjacente.getJogador().equals(novaCarta.getJogador())) {
+              if (novaCarta.getBaixo() > cartaAdjacente.getCima()) {
+                 capturarCarta(x, y, novaCarta.getJogador());
+              } else if (novaCarta.getDireita() > cartaAdjacente.getEsquerda()) {
+                 capturarCarta(x, y, novaCarta.getJogador());
+              } else if (cartaAdjacente.getCima() > novaCarta.getBaixo()) {
+                 capturarCarta(x, y, cartaAdjacente.getJogador());
+              } else if (cartaAdjacente.getEsquerda() > novaCarta.getDireita()) {
+                 capturarCarta(x, y, cartaAdjacente.getJogador());
+              }
+           }
         }
-    }
+     }
 
     private void capturarCarta(int x, int y, String jogadorNovo) {
         String jogadorAntigo = tabuleiro[x][y].getJogador();
