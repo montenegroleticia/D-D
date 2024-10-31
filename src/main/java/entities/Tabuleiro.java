@@ -1,4 +1,4 @@
-package src.entities;
+package entities;
 
 public class Tabuleiro {
     private Carta[][] tabuleiro = new Carta[3][3];

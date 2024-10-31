@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board {
+    width: 600px;
+    height: 400px;
+    background-image: url('images/back.png');
+    background-size: cover;
+    border: 2px solid #000;
+    position: relative;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.hand {
+    display: flex;
+    gap: 10px;
+}
+
+.card {
+    width: 70px;
+    height: 100px;
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #d44;
+}

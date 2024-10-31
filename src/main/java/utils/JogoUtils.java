@@ -1,10 +1,10 @@
-package src.utils;
+package utils;
 
 import java.util.List;
 import java.util.Scanner;
 
-import src.entities.Carta;
-import src.entities.Tabuleiro;
+import entities.Carta;
+import entities.Tabuleiro;
 
 public class JogoUtils {
     private static final int TAMANHO_TABULEIRO = 3;
