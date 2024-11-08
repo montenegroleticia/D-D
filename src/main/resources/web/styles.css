@@ -63,7 +63,12 @@ body {
     align-items: center;
 }
 
-#message {
+.logs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 80%;
     height: 80px;
     font-size: 18px;

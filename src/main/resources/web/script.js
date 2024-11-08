@@ -1,6 +1,7 @@
 const jogadorAtual = { color: 'verde', cartas: [] };
 const boardDiv = document.getElementById('board');
 const messageDiv = document.getElementById('message');
+const statusDiv = document.getElementById('status');
 
 // Função para obter as cartas do jogador
 function carregarCartas() {
@@ -25,7 +26,7 @@ function renderizarCartas(playerHandId, cartas) {
     cartas.forEach((carta, index) => {
         const cardDiv = document.createElement('div');
         cardDiv.classList.add('card');
-        cardDiv.innerHTML = `<img src="${carta.imagem}" alt="Carta ${index + 1}">`; // Atributo imagem da classe Carta
+        cardDiv.innerHTML = `<img src="${carta.imagem}" alt="Carta ${index + 1}">`;
         cardDiv.onclick = () => jogarCarta(carta, playerHandId);
         handDiv.appendChild(cardDiv);
     });
@@ -47,10 +48,7 @@ function jogarCarta(carta, playerHandId) {
         .then(response => {
             atualizarTabuleiro();
             renderizarCartas(playerHandId, jogadorAtual.cartas);
-        })
-        .then(message => {
-            messageDiv.textContent = message;
-            atualizarTabuleiro();
+            console.log(response);
         })
         .catch(error => {
             console.error(error);
@@ -97,5 +95,18 @@ function atualizarTabuleiro() {
         .catch(error => console.error('Erro ao atualizar o tabuleiro:', error));
 }
 
+// Função para obter o status do jogo e atualizar a mensagem
+function atualizarStatus() {
+    fetch('/status')
+        .then(response => response.json())
+        .then(status => {
+            statusDiv.textContent = status;
+        })
+        .catch(error => {
+            console.error('Erro ao obter o status do jogo:', error);
+            statusDiv.textContent = 'Erro ao obter o status do jogo';
+        });
+}
+
 // Carrega as cartas ao iniciar o jogo
-window.onload = carregarCartas(), atualizarTabuleiro();
+window.onload = carregarCartas(), atualizarTabuleiro(), carregarCartas(), atualizarStatus();
