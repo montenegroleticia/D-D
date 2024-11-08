@@ -33,8 +33,8 @@ function renderizarCartas(playerHandId, cartas) {
 
 // Função para jogar a carta no tabuleiro
 function jogarCarta(carta, playerHandId) {
-    const x = prompt('Informe a posição X (0-5):');
-    const y = prompt('Informe a posição Y (0-5):');
+    const x = prompt('Informe a posição X (0-2):');
+    const y = prompt('Informe a posição Y (0-2):');
 
     if (x !== null && y !== null) {
         fetch(`/inserirCarta?jogador=${jogadorAtual.color}&x=${x}&y=${y}`, {
@@ -45,10 +45,8 @@ function jogarCarta(carta, playerHandId) {
             body: JSON.stringify(carta) // Envia a carta que foi jogada
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao inserir carta: ' + response.statusText);
-            }
-            return response.text();
+            atualizarTabuleiro();
+            renderizarCartas(playerHandId, jogadorAtual.cartas);
         })
         .then(message => {
             messageDiv.textContent = message;
@@ -61,15 +59,43 @@ function jogarCarta(carta, playerHandId) {
     }
 }
 
-// Função para atualizar o tabuleiro após uma jogada
+// Função para atualizar o tabuleiro
 function atualizarTabuleiro() {
     fetch('/tabuleiro')
         .then(response => response.json())
-        .then(tabuleiro => {
-            // Aqui você pode renderizar a lógica para mostrar as cartas no tabuleiro
-            // Exemplo: Crie uma matriz de elementos para representar o tabuleiro
-        });
+        .then(data => {
+            console.log('Resposta do servidor:', data);
+            const tabuleiro = data.tabuleiro;
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = ''; // Limpa o tabuleiro antes de adicionar as novas cartas
+
+            tabuleiro.forEach((linha, linhaIndex) => {
+                linha.forEach((carta, colunaIndex) => {
+                    const cartaElement = document.createElement('div');
+
+                    if (carta) {
+                        // Defina as propriedades da carta, por exemplo:
+                        cartaElement.innerHTML = `
+                        <div class="card">
+                            <div class="carta-titulo">Jogador: ${carta.jogador}</div>
+                                <img src="url_da_imagem_placeholder" alt="${carta.elemento}">
+                            </div>
+                            <div class="carta-atributos">
+                                Cima: ${carta.cima}, Baixo: ${carta.baixo}, Esquerda: ${carta.esquerda}, Direita: ${carta.direita}
+                            </div>
+                        </div>
+                        `;
+                    } else {
+                        cartaElement.innerHTML = `<div class="carta-vazia"></div>`;
+                    }
+                    
+                    // Adiciona a carta ao tabuleiro
+                    boardElement.appendChild(cartaElement);
+                });
+            });
+        })
+        .catch(error => console.error('Erro ao atualizar o tabuleiro:', error));
 }
 
 // Carrega as cartas ao iniciar o jogo
-window.onload = carregarCartas;
+window.onload = carregarCartas(), atualizarTabuleiro();
