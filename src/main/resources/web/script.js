@@ -4,6 +4,7 @@ const messageDiv = document.getElementById("message");
 const statusDiv = document.getElementById("status");
 const pontosVerdeDiv = document.getElementById("pontosVerde");
 const pontosAzulDiv = document.getElementById("pontosAzul");
+const musicCard = new Audio('music/TripleTriad_src_main_resources_card-placed.wav');
 
 // Função para obter as cartas do jogador
 function carregarCartas() {
@@ -30,8 +31,7 @@ function renderizarCartas(playerHandId, cartas) {
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
                     <div class="carta-titulo">Jogador: ${carta.jogador}</div>
-                        <img src="${carta.imagem}" alt="${carta.elemento} Carta ${index + 1}"">
-                    </div>
+                    <img src="${carta.imagem}" alt="${carta.elemento} Carta ${index + 1}">
                     <div class="carta-atributos">
                         Cima: ${carta.cima}, Baixo: ${carta.baixo}, Esquerda: ${carta.esquerda}, Direita: ${carta.direita}
                     </div>
@@ -43,6 +43,7 @@ function renderizarCartas(playerHandId, cartas) {
       cardDiv.classList.add("disabled"); // Adiciona uma classe para desabilitar a carta
     }
     handDiv.appendChild(cardDiv);
+    musicCard.play();
   });
 }
 
@@ -95,8 +96,7 @@ function atualizarTabuleiro() {
             cartaElement.classList.add("card");
             cartaElement.innerHTML = `
                             <div class="carta-titulo">Jogador: ${carta.jogador}</div>
-                                <img src="${carta.imagem}" alt="${carta.elemento}">
-                            </div>
+                            <img src="${carta.imagem}" alt="${carta.elemento}">
                             <div class="carta-atributos">
                                 Cima: ${carta.cima}, Baixo: ${carta.baixo}, Esquerda: ${carta.esquerda}, Direita: ${carta.direita}
                             </div>

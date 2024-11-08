@@ -5,6 +5,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url('images/fundo.jpeg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #game {
@@ -58,9 +62,15 @@ body {
 }
 
 #game-log {
+    font-family: "Playfair", serif;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 30%;
+    height: 60px;
+    font-size: 18px;
+    background-color: #FFF;
+    border-radius: 8px;
 }
 
 .logs {
@@ -69,15 +79,10 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    width: 80%;
-    height: 80px;
-    font-size: 18px;
-    background-color: rgb(122, 122, 122);
-    color: white;
+    color: #000;
     margin: 8px;
     padding: 16px;
     box-sizing: border-box;
-    border-radius: 8px;
 }
 
 .carta-vazia {
@@ -85,6 +90,7 @@ body {
 }
 
 .disabled {
+    cursor: not-allowed;
     pointer-events: none;
     opacity: 0.5;
   }
