@@ -57,5 +57,12 @@ public class JogoApi {
             res.type("application/json");
             return gson.toJson(tabuleiro);
         });
+        
+        // Endpoint para sinalizar o fim do jogo
+        get("/fim-de-jogo", (req, res) -> {
+            res.type("application/json");
+            
+            return gson.toJson(tabuleiro);
+        });
     }
 }

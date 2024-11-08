@@ -1,4 +1,4 @@
-let jogadorAtual = { color: "green-hand"};
+let jogadorAtual = { color: "green-hand" };
 const boardDiv = document.getElementById("board");
 const messageDiv = document.getElementById("message");
 const statusDiv = document.getElementById("status");
@@ -8,17 +8,38 @@ const musicCard = new Audio(
   "music/TripleTriad_src_main_resources_card-placed.wav"
 );
 
+// Função fim de jogo
+function fimDeJogo() {
+  fetch("/fim-de-jogo")
+    .then((response) => response.json())
+    .then((data) => {
+      statusDiv.textContent = "O Jogo acabou!";
+      atualizarPlacar(data);
+      if (data.pontosAzul > data.pontosVerde) {
+        messageDiv.textContent = "O jogador Azul venceu!";
+      } else if (data.pontosVerde > data.pontosAzul) {
+        messageDiv.textContent = "O jogador Verde venceu!";
+      }
+    });
+}
+
 // Função para obter as cartas do jogador
 function carregarCartas() {
   fetch("/mao/verde")
     .then((response) => response.json())
     .then((cartas) => {
+      if (cartas.length === 0) {
+        fimDeJogo();
+      }
       renderizarCartas("green-hand", cartas);
     });
 
   fetch("/mao/azul")
     .then((response) => response.json())
     .then((cartas) => {
+      if (cartas.length === 0) {
+        fimDeJogo();
+      }
       renderizarCartas("blue-hand", cartas);
     });
 }
