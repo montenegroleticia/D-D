@@ -90,6 +90,8 @@ function jogarCarta(carta, playerHandId) {
     })
       .then((response) => {
         atualizarTabuleiro();
+        jogador = playerHandId.includes("green") ? "Verde" : "Azul";
+        messageDiv.textContent = `Carta jogada pelo jogador ${jogador} sucesso!`;
         jogadorAtual.color =
           jogadorAtual.color === "green-hand" ? "blue-hand" : "green-hand";
         carregarCartas();
