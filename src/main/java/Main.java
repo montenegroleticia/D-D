@@ -14,20 +14,21 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Baralho baralho = new Baralho();
 
-        List<Carta> maoVerde = baralho.criarMaoVerde();
-        List<Carta> maoAzul = baralho.criarMaoAzul();
+        List<Carta> maoVerde = baralho.getMao("verde");
+        List<Carta> maoAzul = baralho.getMao("azul");
 
         Tabuleiro tabuleiro = new Tabuleiro();
 
-        exibirMaos(maoVerde, maoAzul);
-
         while (!tabuleiro.jogoTerminado()) {
-            realizarTurno("Verde", maoVerde, tabuleiro, scanner);
+            exibirMaos(maoVerde, maoAzul);
+            realizarTurno("Verde", maoVerde, tabuleiro, baralho, scanner);
 
             if (tabuleiro.jogoTerminado()) {
                 break;
             }
-            realizarTurno("Azul", maoAzul, tabuleiro, scanner);
+
+            exibirMaos(maoVerde, maoAzul);
+            realizarTurno("Azul", maoAzul, tabuleiro, baralho, scanner);
         }
 
         System.out.println("\nO jogo terminou!");
@@ -36,20 +37,22 @@ public class Main {
     }
 
     private static void exibirMaos(List<Carta> maoVerde, List<Carta> maoAzul) {
-        System.out.println("Mão do jogador Verde:");
-        for (Carta carta : maoVerde) {
-            System.out.println(carta.toString());
+        System.out.println("\nMão do jogador Verde:");
+        for (int i = 0; i < maoVerde.size(); i++) {
+            System.out.println(i + ": " + maoVerde.get(i));
         }
 
-        System.out.println("Mão do jogador Azul:");
-        for (Carta carta : maoAzul) {
-            System.out.println(carta.toString());
+        System.out.println("\nMão do jogador Azul:");
+        for (int i = 0; i < maoAzul.size(); i++) {
+            System.out.println(i + ": " + maoAzul.get(i));
         }
     }
 
-    private static void realizarTurno(String jogador, List<Carta> mao, Tabuleiro tabuleiro, Scanner scanner) {
-        System.out.println("Turno do jogador " + jogador + ".");
+    private static void realizarTurno(String jogador, List<Carta> mao, Tabuleiro tabuleiro, Baralho baralho, Scanner scanner) {
+        System.out.println("\nTurno do jogador " + jogador + ".");
         int escolhaCarta = JogoUtils.escolherCarta(mao, scanner);
+
+        Carta cartaEscolhida = mao.get(escolhaCarta);
         int[] posicao = JogoUtils.escolherPosicao(scanner);
 
         while (!JogoUtils.posicaoValida(posicao, tabuleiro)) {
@@ -57,7 +60,7 @@ public class Main {
             posicao = JogoUtils.escolherPosicao(scanner);
         }
 
-        Carta cartaEscolhida = mao.get(escolhaCarta);
         tabuleiro.inserirCarta(posicao[0], posicao[1], cartaEscolhida);
+        baralho.removerCarta(jogador.toLowerCase(), cartaEscolhida); // Remove a carta da mão
     }
 }

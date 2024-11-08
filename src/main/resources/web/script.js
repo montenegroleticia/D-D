@@ -1,17 +1,18 @@
-let jogadorAtual = { color: "green-hand", cartas: [] };
+let jogadorAtual = { color: "green-hand"};
 const boardDiv = document.getElementById("board");
 const messageDiv = document.getElementById("message");
 const statusDiv = document.getElementById("status");
 const pontosVerdeDiv = document.getElementById("pontosVerde");
 const pontosAzulDiv = document.getElementById("pontosAzul");
-const musicCard = new Audio('music/TripleTriad_src_main_resources_card-placed.wav');
+const musicCard = new Audio(
+  "music/TripleTriad_src_main_resources_card-placed.wav"
+);
 
 // Função para obter as cartas do jogador
 function carregarCartas() {
   fetch("/mao/verde")
     .then((response) => response.json())
     .then((cartas) => {
-      jogadorAtual.cartas = cartas;
       renderizarCartas("green-hand", cartas);
     });
 
@@ -49,8 +50,8 @@ function renderizarCartas(playerHandId, cartas) {
 
 // Função para atualizar o placar
 function atualizarPlacar(data) {
-    pontosVerdeDiv.textContent = `Verde: ${data.pontosVerde}`;
-    pontosAzulDiv.textContent = `Azul: ${data.pontosAzul}`;
+  pontosVerdeDiv.textContent = `Verde: ${data.pontosVerde}`;
+  pontosAzulDiv.textContent = `Azul: ${data.pontosAzul}`;
 }
 
 // Função para jogar a carta no tabuleiro
@@ -59,7 +60,7 @@ function jogarCarta(carta, playerHandId) {
   const y = prompt("Informe a posição Y (0-2):");
 
   if (x !== null && y !== null) {
-    fetch(`/inserirCarta?jogador=${jogadorAtual.color}&x=${x}&y=${y}`, {
+    fetch(`/inserirCarta?jogador=${carta.jogador}&x=${x}&y=${y}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,7 +69,8 @@ function jogarCarta(carta, playerHandId) {
     })
       .then((response) => {
         atualizarTabuleiro();
-        jogadorAtual.color = jogadorAtual.color === "green-hand" ? "blue-hand" : "green-hand";
+        jogadorAtual.color =
+          jogadorAtual.color === "green-hand" ? "blue-hand" : "green-hand";
         carregarCartas();
       })
       .catch((error) => {
@@ -82,7 +84,6 @@ function atualizarTabuleiro() {
   fetch("/tabuleiro")
     .then((response) => response.json())
     .then((data) => {
-      console.log("Resposta do servidor:", data);
       const tabuleiro = data.tabuleiro;
       const boardElement = document.getElementById("board");
       boardElement.innerHTML = ""; // Limpa o tabuleiro antes de adicionar as novas cartas
@@ -131,6 +132,5 @@ function atualizarStatus() {
 // Carrega as cartas ao iniciar o jogo
 (window.onload = carregarCartas()),
   atualizarTabuleiro(),
-  carregarCartas(),
-  atualizarStatus();
+  atualizarStatus(),
   atualizarPlacar();

@@ -14,19 +14,19 @@ public class JogoApi {
     private static Gson gson = new Gson();
 
     public static void main(String[] args) {
-        port(3000); // Define a porta para o servidor
-        staticFiles.externalLocation("src/main/resources/web"); // Serve arquivos estáticos da pasta web
+        port(3000);
+        staticFiles.externalLocation("src/main/resources/web");
 
-        // Endpoint para criar mão do jogador "verde"
+        // Endpoint para pegar a mão do jogador "verde"
         get("/mao/verde", (req, res) -> {
             res.type("application/json");
-            return gson.toJson(baralho.criarMaoVerde());
+            return gson.toJson(baralho.getMao("verde"));
         });
 
-        // Endpoint para criar mão do jogador "azul"
+        // Endpoint para pegar a mão do jogador "azul"
         get("/mao/azul", (req, res) -> {
             res.type("application/json");
-            return gson.toJson(baralho.criarMaoAzul());
+            return gson.toJson(baralho.getMao("azul"));
         });
 
         // Endpoint para inserir uma carta no tabuleiro
@@ -38,6 +38,7 @@ public class JogoApi {
 
             if (tabuleiro.posicaoLivre(x, y)) {
                 tabuleiro.inserirCarta(x, y, carta);
+                baralho.removerCarta(jogador, carta); // Remove a carta da mão
                 return "Carta inserida com sucesso.";
             } else {
                 res.status(400);

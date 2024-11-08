@@ -7,14 +7,22 @@ import java.util.Random;
 public class Baralho {
     private static final String[] ATRIBUTOS = { "fogo", "agua", "terra" };
     private static final Random RANDOM = new Random();
-    private static final int NUM_CARTAS = 5; 
+    private static final int NUM_CARTAS = 5;
 
-    public List<Carta> criarMao(String jogador) {
+    private List<Carta> maoVerde; // Mão do jogador verde
+    private List<Carta> maoAzul; // Mão do jogador azul
+
+    public Baralho() {
+        this.maoVerde = criarMao("verde");
+        this.maoAzul = criarMao("azul");
+    }
+
+    private List<Carta> criarMao(String jogador) {
         List<Carta> mao = new ArrayList<>();
         for (int i = 0; i < NUM_CARTAS; i++) {
             mao.add(criarCarta(jogador));
         }
-        return mao; 
+        return mao;
     }
 
     private Carta criarCarta(String jogador) {
@@ -23,15 +31,22 @@ public class Baralho {
         int esquerda = RANDOM.nextInt(10);
         int direita = RANDOM.nextInt(10);
         String elemento = ATRIBUTOS[RANDOM.nextInt(ATRIBUTOS.length)];
-        
+
         return new Carta(cima, baixo, esquerda, direita, jogador, elemento);
     }
 
-    public List<Carta> criarMaoVerde() {
-        return criarMao("verde");
+    public List<Carta> getMao(String jogador) {
+        return "verde".equalsIgnoreCase(jogador) ? maoVerde : maoAzul;
     }
 
-    public List<Carta> criarMaoAzul() {
-        return criarMao("azul");
+    public void removerCarta(String jogador, Carta carta) {
+        List<Carta> mao = "verde".equalsIgnoreCase(jogador) ? maoVerde : maoAzul;
+
+        mao.removeIf(c -> c.getCima() == carta.getCima() &&
+                c.getBaixo() == carta.getBaixo() &&
+                c.getEsquerda() == carta.getEsquerda() &&
+                c.getDireita() == carta.getDireita() &&
+                c.getJogador().equalsIgnoreCase(carta.getJogador()) &&
+                c.getElemento().equalsIgnoreCase(carta.getElemento()));
     }
 }
