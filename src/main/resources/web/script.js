@@ -11,6 +11,8 @@ const musicGame = new Audio("music/theme-loop.wav");
 
 const log = document.getElementById("game-log");
 log.style.display = "none";
+const main = document.getElementById("main");
+main.style.display = "none";
 
 // Iniciar o jogo
 const startButton = document.getElementById("start-button");
@@ -18,6 +20,7 @@ startButton.onclick = () => {
   musicGame.play();
   startButton.style.display = "none";
   log.style.display = "flex";
+  main.style.display = "flex";
   carregarCartas();
   atualizarTabuleiro();
   atualizarStatus();
