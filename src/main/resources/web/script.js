@@ -9,20 +9,23 @@ const musicCard = new Audio(
 );
 const musicGame = new Audio("music/theme-loop.wav");
 
-// Cria um botão para iniciar o jogo
-const startButton = document.createElement("button");
-startButton.textContent = "Iniciar Jogo";
+const log = document.getElementById("game-log");
+log.style.display = "none";
+
+// Iniciar o jogo
+const startButton = document.getElementById("start-button");
 startButton.onclick = () => {
   musicGame.play();
   startButton.style.display = "none";
-  iniciarJogo();
+  log.style.display = "flex";
+  carregarCartas();
+  atualizarTabuleiro();
+  atualizarStatus();
+  atualizarPlacar();
 };
-document.body.appendChild(startButton);
 
-// Cria um botão para pausar/tocar a música
-const pauseButton = document.createElement("button");
-pauseButton.textContent = "Pausar Música";
-pauseButton.classList.add("pause-button");
+// Pausar/tocar a música
+const pauseButton = document.getElementById("pause-button");
 pauseButton.onclick = () => {
   if (musicGame.paused) {
     musicGame.play();
@@ -32,7 +35,6 @@ pauseButton.onclick = () => {
     pauseButton.textContent = "Tocar Música";
   }
 };
-document.body.appendChild(pauseButton);
 
 // Função fim de jogo
 function fimDeJogo() {
@@ -143,7 +145,7 @@ function atualizarTabuleiro() {
           const cartaElement = document.createElement("div");
 
           if (carta) {
-            // Defina as propriedades da carta, por exemplo:
+            // Defina as propriedades da carta
             cartaElement.classList.add("card");
             cartaElement.innerHTML = `
                             <img src="${carta.img}" alt="${carta.elemento}">
@@ -177,9 +179,3 @@ function atualizarStatus() {
       statusDiv.textContent = "Erro ao obter o status do jogo";
     });
 }
-
-// Carrega as cartas ao iniciar o jogo
-(window.onload = carregarCartas()),
-  atualizarTabuleiro(),
-  atualizarStatus(),
-  atualizarPlacar();
