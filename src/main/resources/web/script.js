@@ -7,6 +7,32 @@ const pontosAzulDiv = document.getElementById("pontosAzul");
 const musicCard = new Audio(
   "music/TripleTriad_src_main_resources_card-placed.wav"
 );
+const musicGame = new Audio("music/theme-loop.wav");
+
+// Cria um botão para iniciar o jogo
+const startButton = document.createElement("button");
+startButton.textContent = "Iniciar Jogo";
+startButton.onclick = () => {
+  musicGame.play();
+  startButton.style.display = "none";
+  iniciarJogo();
+};
+document.body.appendChild(startButton);
+
+// Cria um botão para pausar/tocar a música
+const pauseButton = document.createElement("button");
+pauseButton.textContent = "Pausar Música";
+pauseButton.classList.add("pause-button");
+pauseButton.onclick = () => {
+  if (musicGame.paused) {
+    musicGame.play();
+    pauseButton.textContent = "Pausar Música";
+  } else {
+    musicGame.pause();
+    pauseButton.textContent = "Tocar Música";
+  }
+};
+document.body.appendChild(pauseButton);
 
 // Função fim de jogo
 function fimDeJogo() {
