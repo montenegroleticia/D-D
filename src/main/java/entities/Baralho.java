@@ -31,8 +31,17 @@ public class Baralho {
         int esquerda = RANDOM.nextInt(10);
         int direita = RANDOM.nextInt(10);
         String elemento = ATRIBUTOS[RANDOM.nextInt(ATRIBUTOS.length)];
+        String img = "";
 
-        return new Carta(cima, baixo, esquerda, direita, jogador, elemento);
+        if (elemento.equals("fogo")) {
+            img = "images/cartas/fogo.jpeg";
+        } else if (elemento.equals("agua")) {
+            img = "images/cartas/agua.jpeg";
+        } else if (elemento.equals("terra")) {
+            img = "images/cartas/terra.jpeg";
+        }
+
+        return new Carta(cima, baixo, esquerda, direita, jogador, elemento, img);
     }
 
     public List<Carta> getMao(String jogador) {

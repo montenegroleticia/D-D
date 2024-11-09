@@ -73,17 +73,18 @@ function carregarCartas() {
 // Função para renderizar as cartas na mão do jogador
 function renderizarCartas(playerHandId, cartas) {
   const handDiv = document.getElementById(playerHandId);
+
   handDiv.innerHTML = "";
   cartas.forEach((carta, index) => {
     const cardDiv = document.createElement("div");
     cardDiv.classList.add("card");
     cardDiv.innerHTML = `
-                    <div class="carta-titulo">Jogador: ${carta.jogador}</div>
-                    <img src="${carta.imagem}" alt="${carta.elemento} Carta ${index + 1}">
+                    <img src="${carta.img}" alt="${carta.elemento} Carta ${index + 1}">
                     <div class="carta-atributos">
                         Cima: ${carta.cima}, Baixo: ${carta.baixo}, Esquerda: ${carta.esquerda}, Direita: ${carta.direita}
                     </div>
                 `;
+
     if (playerHandId.includes(jogadorAtual.color)) {
       cardDiv.classList.remove("disabled");
       cardDiv.onclick = () => jogarCarta(carta, playerHandId);
@@ -136,7 +137,7 @@ function atualizarTabuleiro() {
       const tabuleiro = data.tabuleiro;
       const boardElement = document.getElementById("board");
       boardElement.innerHTML = ""; // Limpa o tabuleiro antes de adicionar as novas cartas
-
+      console.log(data);
       tabuleiro.forEach((linha, linhaIndex) => {
         linha.forEach((carta, colunaIndex) => {
           const cartaElement = document.createElement("div");
@@ -145,8 +146,7 @@ function atualizarTabuleiro() {
             // Defina as propriedades da carta, por exemplo:
             cartaElement.classList.add("card");
             cartaElement.innerHTML = `
-                            <div class="carta-titulo">Jogador: ${carta.jogador}</div>
-                            <img src="${carta.imagem}" alt="${carta.elemento}">
+                            <img src="${carta.img}" alt="${carta.elemento}">
                             <div class="carta-atributos">
                                 Cima: ${carta.cima}, Baixo: ${carta.baixo}, Esquerda: ${carta.esquerda}, Direita: ${carta.direita}
                             </div>

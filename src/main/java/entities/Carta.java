@@ -7,14 +7,16 @@ public class Carta {
     private int direita;
     private String jogador; 
     private String elemento; 
+    private String img;
 
-    public Carta(int cima, int baixo, int esquerda, int direita, String jogador, String elemento) {
+    public Carta(int cima, int baixo, int esquerda, int direita, String jogador, String elemento, String img) {
         this.cima = cima;
         this.baixo = baixo;
         this.esquerda = esquerda;
         this.direita = direita;
         this.jogador = jogador;
         this.elemento = elemento;
+        this.img = img;
     }
 
     @Override
@@ -52,6 +54,10 @@ public class Carta {
 
     public String getElemento() {
         return elemento;
+    }
+
+    public String getImg() {
+        return img;
     }
 
     public void setJogador(String jogador) {
